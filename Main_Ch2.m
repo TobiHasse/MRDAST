@@ -25,15 +25,17 @@
 % Rather than putting parameters directly in *.mat files, I have created
 % commented code which will generate input parameter files.  
 % This allows you to see commentary and variable definitions, or
-% make adjustements for your simulations. But...
+% make adjustements for your simulations, But...
 % if you play with parameters or node spacings, it is likely that you will
 % encounter numerical instability. Instability will often cause problems
 % in the 'enforce_spacing' subroutine, and Schwenk has added a warning and
 % 'keyboard' command for debugging if that happens.
 
-% close all
-% clear
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+close all
+clear
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd 'C:\Users\thasse\Documents\MATLAB\meander code\Ch2\bug fix' %
+cd 'C:\Users\thasse\Documents\MATLAB\test' %
 
 dt_save_years = 2;                  % save river planform every ## years
 
@@ -47,9 +49,10 @@ save_initial_planform()             % initial random planform
 
 %% initialize variables for meander model
 
-do_you_have_stats_toolbox = 1;      % enter 1 if you have the Statistics 
+do_you_have_stats_toolbox = 0;      % enter 1 if you have the Statistics 
                                     % Toolbox, else enter 0
-sim_time_ky = 1; % 205.35;%211;     % simulation time in thousands of years
+sim_time_ky = 15; %211;             % simulation time in thousands of years
+                                    % note orig sim deleted after 205.55
 sim_time = sim_time_ky * 1000;
 dt_save = 12;                       % save every ## iterations
 dt =     dt_save_years / dt_save;
@@ -75,8 +78,10 @@ dt =     dt_save_years / dt_save;
 
 % i=1; CFO = 0.024; Ain = 3;     % Hasse
 % i=1; CFO = 0.01; Ain = 16;     % Testing
-i=1; CFO = 0.0036; Ain = 10; % Schwenk
-outfile = 'code cleanup' %Ch2 2016 params'
+% i=1; CFO = 0.0036; Ain = 10; % Schwenk
+i=1; CFO = 0.005; Ain = 12; % new → lambda = 11.5 ± 7.9
+
+outfile = '15ka_2023' %Ch2 2016 params'
 [river, nodecount, B, freq_mig] = migration_model_TRH_Ch2(CFO(i), ...
     Ain(i), do_you_have_stats_toolbox, outfile, sim_time, dt, dt_save); 
 
@@ -125,16 +130,38 @@ riv2 = river ([start_time:dt:end_time]);
 save(sprintf('%s_30yr_A%d_Cfo%0.3f_2Eo_offset.mat',...
     outfile,Ain,CFO),'riv2','B','start_time','-v7.3') 
 
+
+
+%% The following code is for analysing
+% Meandering River Dynamics and Storage Time github repo: MRDAST
+% https://github.com/TobiHasse/MRDAST
+% MRDAST depends on the LOMR repo to generate the meandering river
+% planform evolution and history
+
+
+
+
+
 %% Read in the saved channel planforms and view
 
 % ********** LOAD riv, B, riv2, TO RUN CODE BLOCKS BELOW ************
 
 clear
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% dissertation files
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo_offset.mat')
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo.mat')
+% other files for checking
 % load('code cleanup_30yr_A16_Cfo0.010_2Eo.mat')
 % load('code cleanup_30yr_A16_Cfo0.010_2Eo_offset.mat')
+% load('code cleanup_30yr_A10_Cfo0.004_2Eo.mat')
+% load('code cleanup_30yr_A10_Cfo0.004_2Eo_offset.mat')
+
+% load('5ka_2023_30yr_A3_Cfo0.024_2Eo.mat')
+% load('5ka_2023_30yr_A3_Cfo0.024_2Eo_offset.mat')
+% load('50ka_2023_30yr_A12_Cfo0.005_2Eo.mat')
+% load('50ka_2023_30yr_A12_Cfo0.005_2Eo_offset.mat')
+
 beep; pause(1); beep
 
 
@@ -146,6 +173,7 @@ beep; pause(1); beep
 load params_storage.mat
 [ x_start_rx, x_start_buffered, x_end_rx, end_sim_rx ] = ...
                             starts_and_ends( riv, riv2, pix_per_chan, B);
+
 fprintf(['Farthest downstream starting pixel is %d but the suggested\n',...
     ' upstream starting pixel is %d to buffer some odd meander bends',...
     ' near the starting node. \nStarting pixel for dissertation was',...
@@ -173,7 +201,7 @@ display_model(riv, riv2, B)
 
 % estimated run time ::::::::::::::::::: 1 minute
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 outfile = 'junk.gif'
 slice_interval = 6;
@@ -198,10 +226,10 @@ cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 % (per array). To manage these memory demands the model is sliced into 
 % short reaches and sediment is built and the storage times measured.
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 load params_storage.mat
-
+% end_sim = end_sim_rx; % to use the recommended simulation time
 show_slice_figures = true;
 
 % show the slices
@@ -225,7 +253,7 @@ zigzags
 
 % estimated run time ::::::::::::::::::: 40 to 100     ****** DAYS *******
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 restart = false
 slice = 0; % zero for first slice
@@ -362,6 +390,4 @@ Ch2fig11_fig12_ranges(ranges5, coef)
 Ch2fig13_pdf
 
 % analysis of storage time continues in Main_Ch4.m
-
-
 
