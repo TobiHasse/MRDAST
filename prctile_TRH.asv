@@ -1,0 +1,66 @@
+function [y_interp ] = prctile_TRH( A, pctile )
+    % Purpose    A workaround for when the Statistics and Machine Learning
+    %            Toolbox is unavailable
+    %            Return the linear interpolated value from the vector for 
+    %            the associated input percentile rank.
+    %   INPUT    A        a vector values
+    %            pctile   a scalar with the desired percentile(s)
+    %                     range 1-100, 
+    %   OUTPUT   val      the value at the input percentile rank
+    %            CDF      a cumulative distribution function
+    %            idx      the index of val within the CDF
+    % Author:    Tobias Hasse tobiack@udel.edu
+    % Date:      written June 2023
+    
+    sprintf( [ 'Using a private function approximation, \nuse prctile()'... 
+        ' if you have the Statistics and Machine Learning Toolbox' ] )
+
+        fprintf('\n "%s" \n',...
+            fullfile(fileparts(mfilename('fullpath')),mfilename))
+    
+    if pctile>1
+        disp('percentile is greater than 1, dividing by 100')
+        pctile = pctile / 100;
+    end
+    
+    A = sort(A,2);         % Put the values in increasing order by row
+    n = size(A,2);         % how many values per row
+
+    % seek the minimum percentile in A for percentiles below the range
+    pctile( pctile < 0.5/n ) = 0.5/n;
+   
+    % The percentile ranks of the matrix should be shifted, such that a 5
+    % element vector has the 10 30 50 70 90th percentiles, using array
+    % indexing the the elements would be 20 40 60 80 100
+    % The algorithm is simpler to shift the percentiles sought:
+    pctile = pctile + 0.5/n;
+
+    % seek the maximum percentile in A for percentiles above the range
+    u_bound = (n-0.5) / n ;
+    pctile( pctile > u_bound ) = u_bound + 0.5/n;
+
+    % scale from percentiles to values to use as indexes for arra
+    pctile_x = pctile * n; 
+
+    % linearize indexing
+    pctile_x = pctile_x + n * ([ 1 : size(A,1) ]' -1 );
+    % transpose A for linear indexing
+    A = A';
+    % obtain uninterpolated values, required for pctile_x that are not
+    % decimals
+    y_raw = A( round( pctile_x , 0 ) ); % required for integer pctile vals
+    % for decimal values of pctile_x, get the adjacent array indexes
+    id_lo = floor( pctile_x );
+    id_hi = ceil(  pctile_x );
+
+    % lnear interpolation
+    % the alorithm below returns NAN for integer values of pctile_x because
+    % the equation evaluates to 0/0 since pctile_x = id_hi = id_lo
+    y_interp =( A( id_lo ) .* ( id_hi - pctile_x ) + ...
+                A( id_hi ) .* ( pctile_x - id_lo) ) ./ ( id_hi - id_lo );
+
+    % replace NAN's with uninterpolated values
+    y_interp(isnan(y_interp)) = y_raw(isnan(y_interp)); 
+
+end
+
