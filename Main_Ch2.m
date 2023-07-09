@@ -147,8 +147,10 @@ save(sprintf('%s_30yr_A%d_Cfo%0.3f_2Eo_offset.mat',...
 % ********** LOAD riv, B, riv2, TO RUN CODE BLOCKS BELOW ************
 
 clear
+cd 'C:\Users\thasse\Documents\MATLAB\test' %
 % cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 % dissertation files
+% Hasse_211* files available at: https://doi.org/10.5281/ZENODO.5651841.
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo_offset.mat')
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo.mat')
 % other files for checking
@@ -207,9 +209,9 @@ outfile = 'junk.gif'
 slice_interval = 6;
 
 
-[valley_w_pxl,occ_bool] = chan_occ(outfile,slice_interval);
+[valley_w_pxl,occ_bool,~] = chan_occ(outfile,slice_interval);
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 %% slicing the model to manage memory demands
 
@@ -229,6 +231,7 @@ cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 % cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 load params_storage.mat
+
 % end_sim = end_sim_rx; % to use the recommended simulation time
 show_slice_figures = true;
 
@@ -241,7 +244,7 @@ show_slice_figures = true;
 
 % estimated run time ::::::::::::::::::: 16 minutes
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 % zigzags will require you to select the folder with the outputs from
 % display_model.m 
@@ -317,7 +320,7 @@ meander_belt_age( lam_vc, mb_age_lim, mb_start_step, riv, riv2, B)
 % simulation because the final node of the simulated river drifted far
 % upstream
 clear
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 file_name = 'distr_3chan_211k_30yr_'; % input file
 % last slice of each reach
