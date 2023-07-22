@@ -14,10 +14,10 @@ This repository was created by Tobias Hasse (tobiack@udel.edu) to host source co
 
 The code in this repository is required for my dissertation: Hasse, Tobias Raphael. "Storage Time Dynamics of Meandering River Floodplain Sediments: A Modeling Study." PhD diss., University of Delaware, 2021.
 
-The dissertation includes the code as appendices and that code runs to completion but is dependant on two MATLAB toolboxes:
+The dissertation includes the code as appendices and that code runs to completion but is dependant on the following MATLAB toolboxes:
 - The Statistics and Machine Learning Toolbox
 - The Image Processing Toolbox
-- The Fit Toolbox
+- The Curve Fitting Toolbox
 
 ### This repository contains additional code to eliminate the Statistics and Machine Learning Toolbox dependency:
 - pctile_TRH.m is a homemade approximation using the algorithm described in the MATLAB online documentation for pctile.m
