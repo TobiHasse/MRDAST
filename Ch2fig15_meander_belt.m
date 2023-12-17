@@ -14,7 +14,7 @@ function Ch2fig15_meander_belt(closesolid,mbsolid,mb_start_step,i )
 %    
 dt_yrs = 30;
 confidence_interval = 95;
-keyboard
+
 htan = figure(22);
 clf   % mb_start_step should replace references to 4000
 %     csa=closesolid(4000:end,:); % tangent meander belt (complete data)
