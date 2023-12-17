@@ -5,10 +5,10 @@ px=[1:size(csa,2)]*dt_yrs;
 m=median(csa);
 % mn = mean(csa);
 % Y = prctile(X,p)
-% p2_5 = prctile(csa,50-cInterval/2);
-% p97_5 = prctile(csa,50+cInterval/2);
-p2_5 = prctile_TRH(csa,50-cInterval/2);
-p97_5 = prctile_TRH(csa,50+cInterval/2);
+p2_5 = prctile(csa,50-cInterval/2);         % Dec 2023 revert to this
+p97_5 = prctile(csa,50+cInterval/2);
+% p2_5 = prctile_TRH(csa',50-cInterval/2)'; % Dec 2023 cancel this
+% p97_5 = prctile_TRH(csa',50+cInterval/2)';
 %
 % figure(1) % plot the mean and median lines onto all the data
 %     hold on
