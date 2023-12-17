@@ -17,6 +17,8 @@ function [y_interp ] = prctile_TRH( A, pctile )
 
         fprintf('\n "%s" \n',...
             fullfile(fileparts(mfilename('fullpath')),mfilename))
+        % return the function call stack
+        dbstack('-completenames')
     
     if pctile>1
         disp('percentile is greater than 1, dividing by 100')
