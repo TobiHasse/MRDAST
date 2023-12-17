@@ -153,6 +153,7 @@ cd 'C:\Users\thasse\Documents\MATLAB\test' %
 % Hasse_211* files available at: https://doi.org/10.5281/ZENODO.5651841.
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo_offset.mat')
 load('Hasse_211ka_30yr_A3_Cfo24_2Eo.mat')
+
 % other files for checking
 % load('code cleanup_30yr_A16_Cfo0.010_2Eo.mat')
 % load('code cleanup_30yr_A16_Cfo0.010_2Eo_offset.mat')
@@ -163,6 +164,8 @@ load('Hasse_211ka_30yr_A3_Cfo24_2Eo.mat')
 % load('5ka_2023_30yr_A3_Cfo0.024_2Eo_offset.mat')
 % load('50ka_2023_30yr_A12_Cfo0.005_2Eo.mat')
 % load('50ka_2023_30yr_A12_Cfo0.005_2Eo_offset.mat')
+% load('15ka_2023_30yr_A12_Cfo0.005_2Eo.mat')
+% load('15ka_2023_30yr_A12_Cfo0.005_2Eo_offset.mat')
 
 beep; pause(1); beep
 
@@ -375,7 +378,7 @@ save('R_squared_ranges.mat','RS', 'ranges5', 'coef','descr','-v7.3')
 
 % estimated run time ::::::::::::::::::: 10 seconds
 
-cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
+% cd C:\Users\User\Documents\MATLAB\MyLib\Pub\Ch2\other
 
 load('R_squared_ranges.mat')
 % Make a figure showing how R^2 varies for the transition paramter xo (T)
