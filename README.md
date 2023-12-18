@@ -21,6 +21,7 @@ The dissertation includes the code as appendices and that code runs to completio
 
 ### This repository contains additional code to eliminate the Statistics and Machine Learning Toolbox dependency:
 - pctile_TRH.m is a homemade approximation using the algorithm described in the MATLAB online documentation for pctile.m
+- To ease implementation without vs with the Statistics and Machine Learning Toolbox, I wrote a wrapper function called pctile.m which transfers the call to pctile_TRH.m.  This wrapper function will be posted in a separate repository called Private Functions with Public Names
 - additionally this repository updates ....
 - _____ compatibility for MATLAB 2021a
 
@@ -28,4 +29,4 @@ The dissertation includes the code as appendices and that code runs to completio
 - it is current and completes through to creating most of the meander dynamis analysis figures and the storage time outputs
 - the code for creating curve fits to the storage time distributions will be posted later
 
-A package of code files will be added to this repository at a later time.
+A package of code files will be added to this repository at a later time. NOW COMPLETED
